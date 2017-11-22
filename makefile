@@ -5,6 +5,7 @@ console:
 	@docker run -it -v $$(pwd):/go/src/golang-coding -w /go/src/golang-coding $(Build_IMAGE) /bin/bash
 
 build:
-	@go build -o cli
+	@go build -v
 
-	
+clean:
+	@go clean -i -n
