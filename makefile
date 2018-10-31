@@ -14,3 +14,6 @@ build:
 
 clean:
 	@go clean -i -n
+
+test:
+	@go test	

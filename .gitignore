@@ -1,6 +1,5 @@
-vendor/**/*
+vendor/
 .DS_Store
 .idea
 .code
 golang-coding
-cli
