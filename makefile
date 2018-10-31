@@ -1,8 +1,13 @@
-Build_IMAGE=go-glide:1.9
+IMAGE=operator:latest
+PROJECT=kube-go-operator
 
-console:
-	@docker build -t $(Build_IMAGE) .
-	@docker run -it -v $$(pwd):/go/src/golang-coding -w /go/src/golang-coding $(Build_IMAGE) /bin/bash
+sh:
+	@docker build -t $(IMAGE) .
+	@docker run -it  -w /go/src/$(PROJECT) \
+	 -v $$(pwd):/go/src/$(PROJECT) \
+	 -v $(HOME)/.kube:/root/.kube \
+	 -v $(HOME)/.aws:/root/.aws \
+	 $(IMAGE) /bin/bash
 
 build:
 	@go build -v
