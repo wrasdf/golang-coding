@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"math"
+	// "math"
 )
 
 // "errors"
@@ -17,23 +17,23 @@ const (
 func main() {
 	// fmt.Printf("Hello, world.\n")
 
-	// s := `
+	//=========  s := `
 	// 	Hello
 	// 	World
 	// `
 	// fmt.Printf("%s\n", s)
 
-	// Demo of Errors
+	//=========  Demo of Errors
 	// err := errors.New("================================")
 	// if err != nil {
 	// 	fmt.Print(err)
 	// }
 
-	// dynamic array
+	//=========  dynamic array
 	// c := [...]int{4, 5, 6}
 	// fmt.Println(c)
 
-	// Map
+	//=========  Map
 	// map[keyType]valueType
 
 	// numbers := make(map[string]int)
@@ -43,10 +43,19 @@ func main() {
 
 	// fmt.Println(numbers["one"], numbers["ten"])
 
+	//========= example of any type of Map
+	// k := make(map[string]interface{})
+	// k["asf"] = "asf"
+	// k["asf2"] = 12
+	//
+	// fmt.Println(k)
+
 	// make只能创建slice、map和channel
 
 	process()
 	method()
+	structs()
+	interfacesRunner()
 
 }
 
@@ -171,37 +180,13 @@ func importFunction() {
 
 }
 
-// struct spike
-
-type Rectangle struct {
-	width, height float64
-}
-
-type Circle struct {
-	radius float64
-}
-
-func (r Rectangle) area() float64 {
-	return r.width * r.height
-}
-
-func (c Circle) area() float64 {
-	return c.radius * c.radius * math.Pi
-}
-
-func init() {
-	r1 := Rectangle{12, 2}
-	r2 := Rectangle{9, 4}
-	c1 := Circle{10}
-	c2 := Circle{25}
-
-	fmt.Println("Area of r1 is: ", r1.area())
-	fmt.Println("Area of r2 is: ", r2.area())
-	fmt.Println("Area of c1 is: ", c1.area())
-	fmt.Println("Area of c2 is: ", c2.area())
-}
-
 func method() {
+	//====== type of array
+	// m := []int{3,4}
+	// m = append(m, 12)
+	// fmt.Printf(m)
+
+	// ====== example of type with map
 	// type months map[string]int
 	//
 	// m := months{
@@ -212,4 +197,149 @@ func method() {
 	//
 	// fmt.Println("---------------", m["January"])
 
+	// ====== example of type with map
+	// type months map[string]string
+	//
+	// m := months{
+	// 	"January":  "first month",
+	// 	"February": "second month",
+	// 	"December": "twelve month",
+	// }
+	//
+	// // delete(m, "January")
+	//
+	// fmt.Println("---------------", m["February"])
+
+	// ====== example of loop array
+	// for i := 0; i < 5; i ++ {
+	// 	fmt.Println(i)
+	// }
+
+	// ====== example2 of loop array
+	// arr := []string{"a", "b", "c"}
+	// for index, value := range arr {
+	// 	fmt.Println("index: ", index, "value: ", value)
+	// }
+
+	// ====== example3 of loop map
+	// map1 := map[string]string {
+	// 	"a": "b",
+	// 	"c": "d",
+	// }
+	//
+	// for index, value := range map1 {
+	// 	fmt.Println("index: ", index, "value: ", value)
+	// }
+
+}
+
+func structs() {
+
+	//====== example 1
+	// type Person struct {
+	// 	name string
+	// 	age int
+	// }
+	//
+	// mike := Person {
+	// 	name: "Mike John",
+	// 	age: 12,
+	// }
+	//
+	// fmt.Println(mike)
+
+
+	//====== example 2
+	// type Rectangle struct {
+	// 	width, height float64
+	// }
+	//
+	// type Circle struct {
+	// 	radius float64
+	// }
+	//
+	// func (r Rectangle) area() float64 {
+	// 	return r.width * r.height
+	// }
+	//
+	// func (c Circle) area() float64 {
+	// 	return c.radius * c.radius * math.Pi
+	// }
+	//
+	// r1 := Rectangle{12, 2}
+	// r2 := Rectangle{9, 4}
+	// c1 := Circle{10}
+	// c2 := Circle{25}
+	//
+	// fmt.Println("Area of r1 is: ", r1.area())
+	// fmt.Println("Area of r2 is: ", r2.area())
+	// fmt.Println("Area of c1 is: ", c1.area())
+	// fmt.Println("Area of c2 is: ", c2.area())
+
+}
+//====== interface example1
+// type Writer interface {
+// 	write() (int, error)
+// }
+//
+// type ConsoleWriter struct {
+// 	content string
+// }
+//
+// func (cw ConsoleWriter) write () (int, error) {
+// 	s, err := fmt.Println(cw.content)
+// 	return s, err
+// }
+//
+// func interfacesRunner() {
+// 	var w Writer = ConsoleWriter{
+// 		content: "Update your string here",
+// 	}
+// 	w.write()
+// }
+
+
+//====== interface example2
+type Writer interface {
+	publicBook(string, string)
+	deleteBook(string)
+	listBooks() (map[string]string)
+}
+
+type Details struct {
+	name string
+	age int
+	books map[string]string
+}
+
+func NewWriter(details Details) *Details {
+	return &details
+}
+
+func (w *Details) publicBook(bookName string, description string) {
+	w.books[bookName] = description
+}
+
+func (w *Details) deleteBook(bookName string) {
+	delete(w.books, bookName)
+}
+
+func (w *Details) listBooks() (map[string]string){
+	return w.books
+}
+
+func interfacesRunner() {
+
+	var mike Writer = NewWriter(Details{
+		name: "Mike Strus",
+		age: 43,
+		books: make(map[string]string),
+	})
+
+	mike.publicBook("The Sky1", "Sky colors")
+	mike.publicBook("The Sky2", "Sky colors")
+	mike.publicBook("The Sky3", "Sky colors")
+	mike.deleteBook("The Sky2")
+
+	fmt.Println(mike.listBooks())
 }

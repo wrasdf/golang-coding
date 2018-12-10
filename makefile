@@ -1,5 +1,5 @@
-IMAGE=operator:latest
-PROJECT=kube-go-operator
+IMAGE=coding:latest
+PROJECT=golang-coding
 
 sh:
 	@docker build -t $(IMAGE) .
@@ -9,6 +9,9 @@ sh:
 	 -v $(HOME)/.aws:/root/.aws \
 	 $(IMAGE) /bin/bash
 
+run:
+	@go run main.go
+
 build:
 	@go build -v
 
@@ -16,4 +19,4 @@ clean:
 	@go clean -i -n
 
 test:
-	@go test	
+	@go test
