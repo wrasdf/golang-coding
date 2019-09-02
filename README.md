@@ -1,3 +1,5 @@
+## Golang Project Template [![CircleCI](https://circleci.com/gh/wrasdf/golang-coding/tree/master.svg?style=svg)](https://circleci.com/gh/wrasdf/golang-coding/tree/master)
+
 Change Logs:
 
 Version 0.0.2:
