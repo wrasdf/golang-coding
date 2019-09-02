@@ -1,0 +1,21 @@
+version: "3.6"
+
+services:
+
+  golang: &base
+    build: .
+    working_dir: /go/src/app
+    volumes:
+      - ".:/go/src/app"
+
+  sh:
+    <<: *base
+    entrypoint:
+      - "/bin/bash"
+
+  test:
+    <<: *base
+    entrypoint:
+      - "go"
+      - "test"
+      - "./tests"
