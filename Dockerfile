@@ -1,4 +1,4 @@
-FROM golang:1.13-rc-alpine3.10
+FROM golang:1.13.10-alpine3.11
 
 ENV GO111MODULE=on
 WORKDIR /go/src/app/
