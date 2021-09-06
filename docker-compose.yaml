@@ -1,21 +1,33 @@
-version: "3.2"
+version: '3.7'
+
+x-base: &base
+  volumes:
+    - "$HOME/.aws:/root/.aws"
+    - "$HOME/.kube:/root/.kube"
+    - ".:/go/src/github.com/wrasdf/golang-coding"
+  working_dir: /go/src/github.com/wrasdf/golang-coding
+  environment:
+    - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-ap-southeast-2}
+    - AWS_PROFILE
 
 services:
 
-  golang: &base
-    build: .
-    working_dir: /go/src/app
-    volumes:
-      - ".:/go/src/app"
-
   sh:
     <<: *base
-    entrypoint:
-      - "/bin/bash"
+    build:
+      context: .
+      target: builder
+    entrypoint: bash
 
-  test:
+  k8s-toolkit:
     <<: *base
-    entrypoint:
-      - "go"
-      - "test"
-      - "./tests"
+    image: ikerry/k8s-toolkit:latest
+    user: root
+    entrypoint: bash
+
+  release:
+    <<: *base
+    build:
+      context: .
+      target: release
+    image: ikerry/code:latest:${APP_VERSION:-latest}

@@ -1,5 +1,8 @@
-vendor/
-.DS_Store
-.idea
-.code
-golang-coding
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/code
